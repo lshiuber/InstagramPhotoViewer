@@ -1,6 +1,7 @@
 package com.codepath.instagram.helpers;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.codepath.instagram.models.InstagramComment;
 import com.codepath.instagram.models.InstagramPost;
@@ -69,6 +70,15 @@ public class Utils {
     public static List<InstagramSearchTag> decodeSearchTagsFromJsonResponse(JSONObject jsonObject) {
         List<InstagramSearchTag> searchTags = InstagramSearchTag.fromJson(getDataJsonArray(jsonObject));
         return searchTags == null ? new ArrayList<InstagramSearchTag>() : searchTags;
+    }
+
+    public static List<InstagramPost> fetchPosts(Context context) {
+        try {
+            return decodePostsFromJsonResponse(loadJsonFromAsset(context, "popular.json"));
+        } catch (Exception e) {
+            Log.wtf("Utils", "Error while trying to fetch posts.");
+            return new ArrayList<>();
+        }
     }
 
     private static JSONArray getDataJsonArray(JSONObject jsonObject) {
