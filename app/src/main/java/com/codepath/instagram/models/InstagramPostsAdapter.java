@@ -77,14 +77,13 @@ public class InstagramPostsAdapter extends
                         DateUtils.DAY_IN_MILLIS));
 
         // 2nd row: Image
-        // TODO: Resize. This part is tricky and not working yet.
         Picasso.with(context)
                 .load(post.image.imageUrl)
-                .fit()
-                //.resize(1000, 0)
-                //.centerInside()
                 .placeholder(R.drawable.gray_rectangle)
                 .into(holder.ivPost);
+        int display_width = context.getResources().getDisplayMetrics().widthPixels;
+        holder.ivPost.getLayoutParams().height =
+                display_width * post.image.imageHeight / post.image.imageWidth;
 
         // 3rd row: Like
         holder.tvLike.setText(Utils.formatNumberForDisplay(post.likesCount) + " likes");
