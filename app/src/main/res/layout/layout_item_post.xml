@@ -2,6 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/ivProfilePicture"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="14dp" />
+
     <TextView
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -14,15 +23,6 @@
         android:paddingLeft="8dp"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/blue_text" />
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/ivProfilePicture"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="14dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,12 +48,44 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true" />
 
+    <ImageView
+        android:id="@+id/ivHeart"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_heart"
+        android:layout_below="@+id/ivPost"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:id="@+id/ivComment"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_comment"
+        android:layout_below="@+id/ivPost"
+        android:layout_toRightOf="@+id/ivHeart"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="14dp" />
+
+    <ImageButton
+        android:id="@+id/ibShare"
+        android:layout_width="8dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_more_dots"
+        android:layout_below="@+id/ivPost"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="14dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Like"
         android:id="@+id/tvLike"
-        android:layout_below="@+id/ivPost"
+        android:layout_below="@+id/ibShare"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:drawableLeft="@drawable/ic_small_heart_filled"
@@ -77,5 +109,30 @@
         android:lineSpacingMultiplier="1.2"
         android:paddingLeft="14dp"
         android:paddingTop="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="View all ??? comments"
+        android:id="@+id/tvViewAllComments"
+        android:layout_below="@+id/tvCaption"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/light_gray_text"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp"
+        android:paddingLeft="14dp"
+        android:paddingTop="0dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvViewAllComments"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/llComments"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"></LinearLayout>
 
 </RelativeLayout>

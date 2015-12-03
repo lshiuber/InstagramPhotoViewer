@@ -1,72 +1,85 @@
 package com.codepath.instagram.activities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.codepath.instagram.R;
 import com.codepath.instagram.helpers.SimpleVerticalSpacerItemDecoration;
 import com.codepath.instagram.helpers.Utils;
+import com.codepath.instagram.models.InstagramClient;
 import com.codepath.instagram.models.InstagramPost;
 import com.codepath.instagram.models.InstagramPostsAdapter;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
+    List<InstagramPost> posts;
+    InstagramPostsAdapter adapter;
+
+    @Bind(R.id.rvPosts) RecyclerView rvPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        List<InstagramPost> posts = Utils.fetchPosts(this);
-
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
-
-
-
-
-
-        // ...
-        // Lookup the recyclerview in activity layout
-        RecyclerView rvPosts = (RecyclerView) findViewById(R.id.rvPosts);
-        // Create adapter passing in the sample user data
-        InstagramPostsAdapter adapter = new InstagramPostsAdapter(posts); //.createContactsList(20));
+        // Create adapter
+        posts = new ArrayList<>();
+        adapter = new InstagramPostsAdapter(this, posts);
         // Attach the adapter to the recyclerview to populate items
         rvPosts.setAdapter(adapter);
         // Set layout manager to position the items
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
 
         rvPosts.addItemDecoration(new SimpleVerticalSpacerItemDecoration(24));
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (isNetworkAvailable()) {
+            getPosts();
+        } else {
+            Toast.makeText(
+                    this,
+                    "Network Error\n\nPlease connect to the internet and try again.", 20).show();
+            finish();
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public void getPosts() {
+        InstagramClient.getPopularFeed(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    posts.clear();
+                    posts.addAll(Utils.decodePostsFromJsonResponse(response));
+                    adapter.notifyDataSetChanged();
+                } catch (Exception e) {
+                    Log.wtf("Utils", "Error while trying to fetch posts.");
+                    return;
+                }
+            }
+        });
     }
 }
