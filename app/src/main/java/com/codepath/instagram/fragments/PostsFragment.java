@@ -1,4 +1,4 @@
-package com.codepath.instagram.models;
+package com.codepath.instagram.fragments;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -9,15 +9,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.codepath.instagram.R;
-import com.codepath.instagram.activities.HomeActivity;
+import com.codepath.instagram.adapters.InstagramPostsAdapter;
 import com.codepath.instagram.core.MainApplication;
 import com.codepath.instagram.helpers.SimpleVerticalSpacerItemDecoration;
 import com.codepath.instagram.helpers.Utils;
+import com.codepath.instagram.models.InstagramClient;
+import com.codepath.instagram.models.InstagramPost;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -25,9 +29,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by lshi on 12/3/15.
@@ -45,18 +46,21 @@ public class PostsFragment extends Fragment {
 
     // newInstance constructor for creating fragment with arguments
     public static PostsFragment newInstance() { //int page, String title) {
-//        PostsFragment fragmentFirst = new PostsFragment();
-//        Bundle args = new Bundle();
-//        args.putInt("someInt", page);
-//        args.putString("someTitle", title);
-//        fragmentFirst.setArguments(args);
         return new PostsFragment();
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar.
+        inflater.inflate(R.menu.menu_home, menu);
+
+        // ...
     }
 
     public View onCreateView(LayoutInflater inflater,

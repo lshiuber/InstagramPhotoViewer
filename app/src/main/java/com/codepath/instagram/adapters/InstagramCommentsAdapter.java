@@ -1,4 +1,4 @@
-package com.codepath.instagram.models;
+package com.codepath.instagram.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.instagram.R;
+import com.codepath.instagram.models.InstagramComment;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;

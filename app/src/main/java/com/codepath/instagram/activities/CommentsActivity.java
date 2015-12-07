@@ -11,7 +11,7 @@ import com.codepath.instagram.core.MainApplication;
 import com.codepath.instagram.helpers.Utils;
 import com.codepath.instagram.models.InstagramClient;
 import com.codepath.instagram.models.InstagramComment;
-import com.codepath.instagram.models.InstagramCommentsAdapter;
+import com.codepath.instagram.adapters.InstagramCommentsAdapter;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;

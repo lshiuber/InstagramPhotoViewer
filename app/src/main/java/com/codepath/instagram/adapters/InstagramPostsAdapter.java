@@ -1,4 +1,4 @@
-package com.codepath.instagram.models;
+package com.codepath.instagram.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.codepath.instagram.R;
 import com.codepath.instagram.activities.CommentsActivity;
 import com.codepath.instagram.helpers.Utils;
+import com.codepath.instagram.models.InstagramPost;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
