@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.codepath.instagram.R;
+import com.codepath.instagram.core.MainApplication;
 import com.codepath.instagram.helpers.Utils;
 import com.codepath.instagram.models.InstagramClient;
 import com.codepath.instagram.models.InstagramComment;
@@ -29,6 +30,8 @@ public class CommentsActivity extends AppCompatActivity {
 //    private static final String TAG = "CommentsActivity";
     List<InstagramComment> comments;
     InstagramCommentsAdapter adapter;
+    InstagramClient client;
+
     @Bind(R.id.rvComments) RecyclerView rvComments;
 
     @Override
@@ -36,6 +39,8 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
         ButterKnife.bind(this);
+
+        client = MainApplication.getRestClient();
 
         // Create adapter
         comments = new ArrayList<>();
@@ -54,7 +59,7 @@ public class CommentsActivity extends AppCompatActivity {
         comments.clear();
         adapter.notifyDataSetChanged();
 
-        InstagramClient.getComments(mediaId, new JsonHttpResponseHandler() {
+        client.getComments(mediaId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

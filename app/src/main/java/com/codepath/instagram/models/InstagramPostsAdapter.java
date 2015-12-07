@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.codepath.instagram.R;
 import com.codepath.instagram.activities.CommentsActivity;
-import com.codepath.instagram.activities.HomeActivity;
 import com.codepath.instagram.helpers.Utils;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -45,11 +44,8 @@ public class InstagramPostsAdapter extends
 
     private List<InstagramPost> mPosts;
     Transformation mTransformation;
-    HomeActivity mHomeActivity;
 
-    public InstagramPostsAdapter(HomeActivity homeActivity, List<InstagramPost> posts) {
-        mHomeActivity = homeActivity;
-
+    public InstagramPostsAdapter(List<InstagramPost> posts) {
         mPosts = posts;
         mTransformation = new RoundedTransformationBuilder()
                 .borderWidthDp(0)
@@ -57,8 +53,6 @@ public class InstagramPostsAdapter extends
                 .oval(false)
                 .build();
     }
-
-
 
     @Override
     public int getItemCount() {
